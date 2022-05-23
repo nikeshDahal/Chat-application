@@ -1,0 +1,258 @@
+/* screen configs */
+
+* {
+    box-sizing: border-box;
+    padding: 0;
+    margin: 0;
+  }
+  
+  body {
+    background-color: #b1aeae;
+    font-family: 'Roboto', sans-serif;
+  }
+  
+  ul { list-style: none; } 
+  
+  h3 {
+    text-transform: uppercase;
+    margin: 0 auto;
+    padding: 10px;
+    text-align: center;
+    color: #161418;
+  }
+  
+  /* chatbox */
+
+  .chat {
+    max-width:60%;
+    min-height: 400px;
+    background-color: rgb(199, 199, 252); 
+    padding-right: 15px;
+    padding-left: 15px;
+    margin: 20px auto;
+    border-radius: 1rem;
+    box-shadow: #a5a5a5 0px 7px 15px 6px;
+  }
+
+  .main-container{
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+
+  }
+  
+  /* messages */
+  .messages {
+    overflow-y: scroll;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    height: 500px;
+  }
+  
+  .message-list {
+    /* overflow-y: scroll; */
+    /* max-height: 700px; */
+  }
+  
+  
+  .message-item {
+    padding: 10px;
+    border-radius: 0.90rem;
+    margin: 15px 10px;
+    margin-left: 0px;
+  }
+  
+  .message-item:last-child {
+    margin-bottom: 0;
+  }
+  
+  .item-primary {
+    background-color: #fffdff;
+    color: #070707;
+  }
+  
+  .item-secondary {
+    background-color: fffdff;
+    color: #070707;
+  }
+  
+  /* message box */
+  .message-input {
+    display: flex;
+    flex-direction: row;
+    padding: 20px;
+    padding-right: 10px;
+    position: relative;
+  }
+
+
+  .message-input input {
+    width: 75%;
+    padding: 10px;
+    border-radius: 1.2rem;
+    border: 1px solid #a5a5a5;
+    
+  }
+  
+  .message-input img {
+    padding: 5px;
+    margin-left: 5px;
+    /* border-radius: 5px; */
+    /* border: none; */
+    cursor: pointer;
+    width: 10%;
+    height:70%;
+    margin-top: 5px;
+  }
+  .send-img{
+    width: 5%;
+    height:50%;
+  }
+
+
+
+/* sidebar */
+  .head{
+    font-size: 1.5rem;
+    font-weight: bold;
+    color: #f7f5fa;
+    margin-bottom:30px;
+    margin-top: 15px;
+  }
+  .person-sidebar {
+    width: 20%;
+    height: 100%;
+    background-color: rgb(176, 170, 236);
+    color: rgb(255, 255, 255);
+    padding: 20px;
+    border-radius: 1rem;
+    box-shadow: #a5a5a5 0px 7px 15px 6px;
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 1;
+  }
+  .person-sidebar a {
+    color: rgb(7, 7, 7);
+    text-decoration: none;
+  };
+  .person-sidebar a:hover {
+    text-decoration: none;
+  }
+  .person-sidebar img{
+    width: 45px;
+    height: 45px;
+    border-radius: 50%;
+  }
+  .sidebar-item{
+    padding: 10px;
+    border-radius: 0.90rem;
+    margin: 10px 10px;
+    margin-left: 0px;
+  }
+
+  .sidebar-item:hover{
+    background-color: #eef4fc;
+    color: rgb(245, 243, 247);
+  }
+ 
+  /* group side bar */
+
+  .Group-sidebar{
+    width: 20%;
+    height: 100%;
+    background-color: rgb(176, 170, 236);
+    color: rgb(255, 255, 255);
+    padding: 20px;
+    border-radius: 1rem;
+    box-shadow: #a5a5a5 0px 7px 15px 6px;
+    position: fixed;
+    top: 0;
+    right: 0;
+    z-index: 1;
+  }
+  .Group-sidebar a {
+    color: rgb(7, 7, 7);
+    text-decoration: none;
+  };
+  .Group-sidebar a:hover {
+    text-decoration: none;
+  }
+  .Group-sidebar img{
+    width: 45px;
+    height: 45px;
+    border-radius: 50%;
+  }
+  .sidebar-item{
+    padding: 10px;
+    border-radius: 0.90rem;
+    margin: 10px 10px;
+    margin-left: 0px;
+  }
+
+  .sidebar-item:hover{
+    background-color: #eef4fc;
+    color: rgb(245, 243, 247);
+  }
+  /* group side bar ended */
+
+  /* search section */
+  .search{
+    display: flex;
+    flex-direction: row;
+    margin-bottom: 20px;
+    margin-top: 10px;
+  }
+
+  .search input{
+    width: 100%;
+    height: 35px;
+    border-radius: 1.2rem;
+    border: 1px solid #6d6b6b;
+    padding: 10px;
+  }
+  .search img{
+    width: 10%;
+    height:70%;
+    margin-top: 5px;
+  }
+  .search button{
+    margin-left: 20px;
+    border-radius: 20%;
+    border: none;
+    padding: 0.25rem;
+  }
+  .search button:hover{
+    background-color: gray;
+  }
+  
+
+  /* group members */
+  .group-members{
+    width: 6.5%;
+    height: 100%;
+    background-color: rgb(176, 170, 236);
+    color: rgb(255, 255, 255);
+    padding: 3px;
+    border-radius: 0.3rem;
+    box-shadow: #a5a5a5 0px 7px 15px 6px;
+    position: fixed;
+    top: 0;
+    right: 301px;
+    z-index: 1;
+  }
+
+  .group-members a {
+    color: rgb(7, 7, 7);
+    text-decoration: none;
+  };
+  .group-members a:hover {
+    text-decoration: none;
+  }
+  .group-members img{
+    width: 45px;
+    height: 45px;
+    border-radius: 50%;
+  }
