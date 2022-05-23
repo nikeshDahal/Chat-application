@@ -20,10 +20,11 @@
       <div class="chat">
         <div class="messages">
           <ul class="message-list" id="message">
-            <!-- <li class="message-item item-primary">
-              Nikesh : Hello Friends !
-            </li> -->
           </ul>
+        </div>
+        <hr
+        style="height: 3px; width: 100%;  border: width 2px; color:rgb(151, 151, 151); background-color:rgb(107, 106, 106) ">
+        <div class="input-field">
           <div class="message-input">
             <input id="inputField" type="text" placeholder="Type your message..." />
             <img class="send-img" src="/images/send-img.png" alt="send" id="sendImageButton" />
@@ -49,7 +50,7 @@
       <hr
         style="height: 3px; width: 100%;  border: width 2px; color:rgb(151, 151, 151); background-color:rgb(107, 106, 106)">
       <sidebar>
-        <ul class="sidebar-list" id="new-user">
+        <ul class="sidebar-list2" id="new-user">
         </ul>
       </sidebar>
     </div>
@@ -64,14 +65,14 @@
       <p>
       <div class="search">
         <input id="group-name" type="text" placeholder="write Group Name" />
+        <button id="create-group-button">Create Group</button>
       </div>
-      <div>
-        <button id="user-List">Generate User List</button>
-      </div>
+      <hr
+      style="height: 3px; width: 100%;  border: width 2px; color:rgb(151, 151, 151); background-color:rgb(107, 106, 106)">
       <div class="search">
+        <button class="resizeButton" id="user-List">Generate User List</button>
         <select name="users" onchange="selectionOfUsersToAddInGroup()" id="users" multiple>
         </select>
-        <button id="create-group-button">add</button>
       </div>
       <hr
         style="height: 3px; width: 100%;  border: width 2px; color:rgb(151, 151, 151); background-color:rgb(107, 106, 106)">
@@ -87,7 +88,7 @@
       <hr
         style="height: 3px; width: 100%;  border: width 2px; color:rgb(151, 151, 151); background-color:rgb(107, 106, 106)">
       <sidebar>
-        <ul class="Group-members-list" id="group-members-id">
+        <ul class="sidebar-list2" id="group-members-id">
         </ul>
       </sidebar>
     </div>

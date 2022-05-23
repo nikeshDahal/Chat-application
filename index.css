@@ -48,14 +48,8 @@
     display: flex;
     flex-direction: column;
     justify-content: space-between;
-    height: 500px;
+    height: 400px;
   }
-  
-  .message-list {
-    /* overflow-y: scroll; */
-    /* max-height: 700px; */
-  }
-  
   
   .message-item {
     padding: 10px;
@@ -73,10 +67,7 @@
     color: #070707;
   }
   
-  .item-secondary {
-    background-color: fffdff;
-    color: #070707;
-  }
+
   
   /* message box */
   .message-input {
@@ -99,12 +90,10 @@
   .message-input img {
     padding: 5px;
     margin-left: 5px;
-    /* border-radius: 5px; */
-    /* border: none; */
     cursor: pointer;
     width: 10%;
     height:70%;
-    margin-top: 5px;
+    margin-top: 1px;
   }
   .send-img{
     width: 5%;
@@ -224,6 +213,15 @@
     border: none;
     padding: 0.25rem;
   }
+  .resizeButton{
+    margin-left: 20px;
+    margin-right: 30px;
+    border-radius: 30%;
+    height: 50px;
+    width: 130px;
+    border: none;
+    padding: 0.25rem;
+  }
   .search button:hover{
     background-color: gray;
   }
@@ -255,4 +253,13 @@
     width: 45px;
     height: 45px;
     border-radius: 50%;
+  }
+ 
+  .sidebar-list{
+    overflow-y: scroll;
+    height: 225px;
+  }
+  .sidebar-list2{
+    overflow-y: scroll;
+    height: 370px;
   }

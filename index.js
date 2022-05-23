@@ -75,7 +75,7 @@ function sendMessageFunction() {
         "please select any user from the sidebar to send message from their name in group,so that other user may know the sender"
       );
       inputField.value = "";
-    } else {
+    }
       const newMessageElement = document.createElement("li");
       newMessageElement.innerHTML = `${selectedUser}: ${inputField.value.replace(
         /<[^>]+>/g,
@@ -87,7 +87,6 @@ function sendMessageFunction() {
       mainMessageList.appendChild(newMessageElement);
       inputField.value = "";
     }
-  }
 }
 sendImageButton.addEventListener("click", () => {
   sendMessageFunction();
@@ -115,8 +114,9 @@ groupNameElement.addEventListener("keypress", function (event) {
   if (event.key === "Enter") {
     event.preventDefault();
     console.log(enteredGroupName);
-    alert(`we got your entered group name = ${enteredGroupName}`);
+    alert(`Entered Group Name is : ${enteredGroupName}`);
   }
+
   mainListForGroupMembers.innerHTML = ``;
 });
 function selectionOfUsersToAddInGroup() {
