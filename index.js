@@ -6,14 +6,16 @@ const mainListForNewGroups = document.getElementById("new-group");
 const mainListForGroupMembers = document.getElementById("group-members-id");
 const createdUsers = document.getElementById("users");
 const generateUserList = document.getElementById("user-List");
-const inputOfImage=document.getElementById('image_input');
+const inputOfImage = document.getElementById("image_input");
 
-console.log(inputField, sendImageButton);
-
+//global declarations
 const newGroups = [];
 const newUser = [];
 const dynamicElement = [];
 let inputValueOfNewUser;
+let inputValueOfNewGroup;
+const REQUIRED = "REQUIRED";
+//global declaration ended
 
 //for creation of user
 function creationNewUserHandler() {
@@ -26,8 +28,6 @@ function creationNewUserHandler() {
   //   }
   // }
   newUser.push(inputValueOfNewUser); //putting new users in to array
-  console.log("testing user", newUser);
-
   const newUserElement = document.createElement("li");
   newUserElement.className = "sidebar-item";
   newUserElement.innerHTML = `
@@ -41,9 +41,7 @@ function creationNewUserHandler() {
   </a>`;
   mainListForNewUser.appendChild(newUserElement);
   createNewUserElement.value = "";
-
   dynamicElement.push(document.getElementById(`${inputValueOfNewUser}Id`));
-  console.log(dynamicElement);
   for (item of dynamicElement) {
     eventListener(item);
   }
@@ -62,7 +60,6 @@ function eventListener(element) {
 //ended
 
 //for validation of empty message
-const REQUIRED = "REQUIRED";
 function validate(value, flag) {
   if (flag === REQUIRED) {
     return value.trim().length;
@@ -71,38 +68,43 @@ function validate(value, flag) {
 //for validation completed
 
 //send image button is clicked and mesages are rendered in page by creating elements.
-let newMessageElement
+let newMessageElement;
 function sendMessageFunction() {
-  let inputFieldValue=inputField.value 
+  let inputFieldValue = inputField.value;
   if (!selectedUser) {
     alert(
       "please select any user from the sidebar to send message from their name in group,so that other user may know the sender"
     );
     inputField.value = "";
   } else {
-
-    let fileNames = document.querySelector('#image_input');
+    let fileNames = document.querySelector("#image_input");
     let fileName = fileNames.value;
-    extension = fileName.substring(fileName.lastIndexOf('.') + 1);
-    if (extension=='png'|| extension=='jpg' ||extension=='jpeg'){
-      let file=window.URL.createObjectURL(fileNames.files[0]);
+    extension = fileName.substring(fileName.lastIndexOf(".") + 1);
+    if (extension == "png" || extension == "jpg" || extension == "jpeg") {
+      let file = window.URL.createObjectURL(fileNames.files[0]);
       newMessageElement = document.createElement("li");
       newMessageElement.innerHTML = `${selectedUser}:<img src="${file}" alt="" width="180 " height="100">`;
       newMessageElement.className = "message-item item-primary";
-      mainMessageList.appendChild(newMessageElement); 
-    }
-    else if(!validate(`${inputFieldValue}`, REQUIRED)) {
+      mainMessageList.appendChild(newMessageElement);
+    } else if (!validate(`${inputFieldValue}`, REQUIRED)) {
       alert("please type some message in message box below");
-    }else{
+    } else {
       newMessageElement = document.createElement("li");
       newMessageElement.innerHTML = `${selectedUser}: ${inputFieldValue.replace(
-          /<[^>]+>/g,
-          ""
-        )}`;
+        /<[^>]+>/g,
+        ""
+      )}`;
       newMessageElement.className = "message-item item-primary";
       newMessageElement.style.overflow = "break-word";
       mainMessageList.appendChild(newMessageElement);
       inputField.value = "";
+      newGroups.filter((iterateGroups)=>{
+        const groupName = Object.keys(iterateGroups);
+        const isMatched = groupName.includes(inputValueOfNewGroup);
+        if(isMatched){
+          iterateGroups[inputValueOfNewGroup].messages.push(`${selectedUser}: ${inputFieldValue}`);
+        }        
+      })
     }
   }
 }
@@ -111,66 +113,20 @@ sendImageButton.addEventListener("click", () => {
 });
 //send button ended
 
+
 //group-portion-started
-//generation of listed  users in option block
-const groupNameElement = document.getElementById("group-name");
-function generateUserLIstHandler() {
-  newUser.forEach((userOption) => {
-    console.log("arrayofusers", userOption);
-    const options = document.createElement("option");
-    options.innerHTML = `
-    <option value="${userOption}Id">${userOption}</option>
-    `;
-    createdUsers.appendChild(options);
-  });
-}
-let inputValueOfNewGroup;
-let enteredGroupName;
-groupNameElement.addEventListener("keypress", function (event) {
-  enteredGroupName = groupNameElement.value;
-  if (event.key === "Enter") {
-    event.preventDefault();
-    console.log(enteredGroupName);
-    alert(`Entered Group Name is : ${enteredGroupName}`);
-  }
-
-  mainListForGroupMembers.innerHTML = ``;
-});
-
-
-function selectionOfUsersToAddInGroup() {
-  let usersSelected = document.getElementById("users").value;
-  console.log(newGroups, "testingphase");
-  newGroups.filter((iterateGroups) => {
-    console.log("iterate groups", iterateGroups);
-    let groupName = Object.keys(iterateGroups);
-    console.log("keys", groupName);
-    const isMatched = groupName.includes(enteredGroupName);
-    if (isMatched) {
-      console.log("matched", iterateGroups[enteredGroupName]);
-      iterateGroups[enteredGroupName].push(usersSelected);
-      alert(`user ${usersSelected} is added`);
-      console.log("you selected", usersSelected);
-    }
-  });
-}
-generateUserList.addEventListener("click", generateUserLIstHandler);
-//user list generation ended
 
 //for creation of Group
-
 function creationNewGroupHandler() {
   inputValueOfNewGroup = groupNameElement.value;
-  console.log(inputValueOfNewGroup);
-  //putting new groups in to array
   const groupObj = {
-    [inputValueOfNewGroup]: [],
+    [inputValueOfNewGroup]: {
+      messages: [],
+      members: [],
+    },
   };
-  console.log("group obeject", groupObj);
   newGroups.push(groupObj);
-  console.log("groups name", newGroups); //cleared
-  console.log("testing Group", newGroups);
-
+  console.log(newGroups);
   const newGroupElement = document.createElement("li");
   newGroupElement.className = "sidebar-item";
   newGroupElement.innerHTML = `
@@ -187,41 +143,77 @@ function creationNewGroupHandler() {
 }
 const buttonElementGroup = document.getElementById("create-group-button");
 buttonElementGroup.addEventListener("click", creationNewGroupHandler);
-const removeChilds = (parent) => {
-  while (parent.lastChild) {
-      parent.removeChild(parent.lastChild);
-  }
-};
+
 function eventListenerForGroupMembers(groupElement) {
+  inputValueOfNewGroup=groupElement;
   document.getElementById(
     "mainHeader"
   ).innerText = `${groupElement} Group-Chat`;
-  removeChilds(mainMessageList);//to remove all childs
+  removeChilds(mainMessageList); //to remove all childs
   mainListForGroupMembers.innerHTML = ``;
-  console.log("item", groupElement);
-  newGroups.forEach((singleGroup) => {
-    const singleroupMembers = Object.keys(singleGroup); //list of keys of group
-    if (singleroupMembers.includes(groupElement)) {
-      console.log("User fround ", singleGroup[groupElement]);
-      singleGroup[groupElement].forEach((members) => {
-        console.log(members);
+  newGroups.filter((singleGroup) => {
+    const groupName = Object.keys(singleGroup); //list of keys of group
+    const isMatched = groupName.includes(groupElement);
+    if (isMatched) {
+      singleGroup[groupElement].members.map((iterate) => {
         const groupMemberElement = document.createElement("li");
         groupMemberElement.innerHTML = `
-    <a href="#">
-     <img
-       src="https://www.w3schools.com/howto/img_avatar.png"
-       alt="avatar"
-       class="avatar"
-     />
-     <span id="${members}Id" class="name" onclick="userSelectionToDispayName(this.id)">${members}</span>
-     </a>`;
+            <a href="#">
+            <img
+              src="https://www.w3schools.com/howto/img_avatar.png"
+              alt="avatar"
+              class="avatar"
+            />
+            <span id="${iterate}Id" class="name" onclick="userSelectionToDispayName(this.id)">${iterate}</span>
+            </a>`;
         mainListForGroupMembers.appendChild(groupMemberElement);
+      });
+      singleGroup[groupElement].messages.map((messages) => {
+        newMessageElement = document.createElement("li");
+        newMessageElement.innerHTML = messages;
+        newMessageElement.className = "message-item item-primary";
+        newMessageElement.style.overflow = "break-word";
+        mainMessageList.appendChild(newMessageElement);
       });
     }
   });
 }
+//groups creation ended
+
+//generation of listed  users in option block
+const groupNameElement = document.getElementById("group-name");
+function generateUserLIstHandler() {
+  newUser.forEach((userOption) => {
+    const options = document.createElement("option");
+    options.innerHTML = `
+    <option value="${userOption}Id">${userOption}</option>
+    `;
+    createdUsers.appendChild(options);
+  });
+}
+//user list generation ended
+//group members adding in to group and displaying started
+const removeChilds = (parent) => {
+  while (parent.lastChild) {
+    parent.removeChild(parent.lastChild);
+  }
+};
+
+function selectionOfUsersToAddInGroup() {
+  let usersSelected = document.getElementById("users").value;
+  newGroups.filter((iterateGroups) => {
+    let groupName = Object.keys(iterateGroups);
+    const isMatched = groupName.includes(inputValueOfNewGroup);
+    if (isMatched) {
+      iterateGroups[inputValueOfNewGroup].members.push(usersSelected);
+      alert(`user ${usersSelected} is added`);
+    }
+  });
+}
+generateUserList.addEventListener("click", generateUserLIstHandler);
 
 function userSelectionToDispayName(id) {
   const element = document.getElementById(`${id}`);
   selectedUser = element.textContent;
 }
+// group members adding in to group and displaying ended
