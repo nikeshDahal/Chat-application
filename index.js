@@ -71,11 +71,8 @@ function validate(value, flag) {
 
 //send image button is clicked and mesages are rendered in page by creating elements.
 let newMessageElement
-
-
 function sendMessageFunction() {
-  let inputFieldValue=inputField.value
-  
+  let inputFieldValue=inputField.value 
   if (!selectedUser) {
     alert(
       "please select any user from the sidebar to send message from their name in group,so that other user may know the sender"
@@ -190,11 +187,16 @@ function creationNewGroupHandler() {
 }
 const buttonElementGroup = document.getElementById("create-group-button");
 buttonElementGroup.addEventListener("click", creationNewGroupHandler);
-
+const removeChilds = (parent) => {
+  while (parent.lastChild) {
+      parent.removeChild(parent.lastChild);
+  }
+};
 function eventListenerForGroupMembers(groupElement) {
   document.getElementById(
     "mainHeader"
   ).innerText = `${groupElement} Group-Chat`;
+  removeChilds(mainMessageList);//to remove all childs
   mainListForGroupMembers.innerHTML = ``;
   console.log("item", groupElement);
   newGroups.forEach((singleGroup) => {
