@@ -24,14 +24,15 @@
   /* chatbox */
 
   .chat {
-    max-width:60%;
+    /* max-width:60%; */
     min-height: 400px;
     background-color: rgb(199, 199, 252); 
     padding-right: 15px;
     padding-left: 15px;
-    margin: 20px auto;
     border-radius: 1rem;
     box-shadow: #a5a5a5 0px 7px 15px 6px;
+    margin-right:30%;
+    margin-left: 20%;
   }
 
   .main-container{
@@ -70,21 +71,34 @@
 
   
   /* message box */
+  .input-field{
+    width: 100%;
+  
+    margin:0px;
+    margin-left: 0px;
+  }
   .message-input {
+    width: 100%;
     display: flex;
     flex-direction: row;
-    padding: 20px;
-    padding-right: 10px;
-    position: relative;
+    padding:8px;
+    padding-right:5px;
   }
 
 
-  .message-input input {
-    width: 75%;
+  .message-input-field{
+    height: 45px;
+    width: 60%;
     padding: 10px;
     border-radius: 1.2rem;
     border: 1px solid #a5a5a5;
-    
+    margin-left: 0%;
+  }
+
+  .image-input-field{
+    width: 40;
+    height:3%;
+    margin-top: 1px;
   }
   
   .message-input img {
@@ -92,14 +106,9 @@
     margin-left: 5px;
     cursor: pointer;
     width: 10%;
-    height:70%;
+    height:40%;
     margin-top: 1px;
   }
-  .send-img{
-    width: 5%;
-    height:50%;
-  }
-
 
 
 /* sidebar */
@@ -263,3 +272,6 @@
     overflow-y: scroll;
     height: 370px;
   }
+
+  /* image_input */
+ 
