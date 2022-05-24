@@ -56,6 +56,7 @@ let selectedUser;
 function eventListener(element) {
   element.addEventListener("click", () => {
     selectedUser = element.textContent;
+    inputOfImage.value = null;
   });
 }
 //ended
@@ -103,7 +104,6 @@ function sendMessageFunction() {
       mainMessageList.appendChild(newMessageElement);
       inputField.value = "";
     }
-
   }
 }
 sendImageButton.addEventListener("click", () => {
