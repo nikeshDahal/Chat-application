@@ -26,7 +26,7 @@ let selectedGroupMember;
 //for creation of user
 function creationNewUserHandler() {
   selectedGroupMember = "";
-  inputValueOfNewUser = createNewUserElement.value;
+  inputValueOfNewUser = createNewUserElement.value.replace(' ','_');
   const userObj = {
     [inputValueOfNewUser]: {
       message: [],
@@ -191,6 +191,12 @@ function sendMessageFunction() {
 sendImageButton.addEventListener("click", () => {
   sendMessageFunction();
 });
+inputField.addEventListener('keypress',function(event){
+  if(event.key==='Enter'){
+    event.preventDefault();
+    sendMessageFunction();
+  }
+})
 //send button ended
 
 //group-portion-started
@@ -199,7 +205,7 @@ sendImageButton.addEventListener("click", () => {
 const groupNameElement = document.getElementById("group-name");
 function creationNewGroupHandler() {
   selectedUser = "";
-  inputValueOfNewGroup = groupNameElement.value;
+  inputValueOfNewGroup = groupNameElement.value.replace(' ','_');
   const groupObj = {
     [inputValueOfNewGroup]: {
       messages: [],
@@ -308,9 +314,10 @@ function selectionOfUsersToAddInGroup() {
 
 //search feature
 searchField.addEventListener("keypress", function (event) {
-  enteredSearchFieldValue = searchField.value;
+  enteredSearchFieldValue = searchField.value.replace(' ','_');
   if (event.key === "Enter") {
     event.preventDefault();
+    alert(enteredSearchFieldValue);
     newUser.filter((iterateUsers) => {
       const userName = Object.keys(iterateUsers);
       const isMatched = userName.includes(enteredSearchFieldValue);
