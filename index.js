@@ -26,7 +26,6 @@ let selectedGroupMember;
 //for creation of user
 function creationNewUserHandler() {
   selectedGroupMember = "";
-  
   inputValueOfNewUser = createNewUserElement.value;
   const userObj = {
     [inputValueOfNewUser]: {
@@ -233,6 +232,7 @@ groupNameElement.addEventListener("keypress", function (event) {
 });
 
 function eventListenerForGroupMembers(groupElement) {
+  selectedGroupMember='';
   inputValueOfNewGroup = groupElement;
   document.getElementById(
     "mainHeader"
