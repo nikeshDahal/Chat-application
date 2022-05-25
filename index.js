@@ -1,3 +1,4 @@
+const createNewUserElement = document.getElementById("create-user-id");
 const inputField = document.getElementById("inputField");
 const sendImageButton = document.getElementById("sendImageButton");
 const mainMessageList = document.getElementById("message");
@@ -7,8 +8,8 @@ const mainListForGroupMembers = document.getElementById("group-members-id");
 const createdUsers = document.getElementById("users");
 const generateUserList = document.getElementById("user-List");
 const inputOfImage = document.getElementById("image_input");
-const headerOfChat=document.getElementById('mainHeader');
-const searchField=document.getElementById('searchId');
+const headerOfChat = document.getElementById("mainHeader");
+const searchField = document.getElementById("searchId");
 
 //global declarations
 const newGroups = [];
@@ -24,15 +25,15 @@ let selectedGroupMember;
 
 //for creation of user
 function creationNewUserHandler() {
-  selectedGroupMember='';
-  const createNewUserElement = document.getElementById("create-user-id");
+  selectedGroupMember = "";
+  
   inputValueOfNewUser = createNewUserElement.value;
-  const userObj={
-    [inputValueOfNewUser]:{
-      message:[],
-      timeOfMessage:[]
-    }
-  }
+  const userObj = {
+    [inputValueOfNewUser]: {
+      message: [],
+      timeOfMessage: [],
+    },
+  };
   newUser.push(userObj); //putting new users in to array
   console.log(newUser);
   const newUserElement = document.createElement("li");
@@ -50,30 +51,33 @@ function creationNewUserHandler() {
   createNewUserElement.value = "";
 }
 
-
 function eventListener(inputValueOfNewUser) {
-    removeChilds(mainMessageList);
-    selectedUser=inputValueOfNewUser;
-    inputOfImage.value = null;
-    headerOfChat.innerText = `${selectedUser}-Chat`;
-    newUser.filter((iterateUsers)=>{
-      const userName = Object.keys(iterateUsers);
-      const isMatched = userName.includes(selectedUser);
-      if(isMatched){
-          iterateUsers[selectedUser].message.map((iterateMessage)=>{
-          newMessageElement = document.createElement("li");
-          newMessageElement.innerHTML = iterateMessage;
-          newMessageElement.className = "message-item item-primary";
-          mainMessageList.appendChild(newMessageElement);
-        })
-      }        
-    });
-      
-    
-}//new user creation completed
+  removeChilds(mainMessageList);
+  selectedUser = inputValueOfNewUser;
+  inputOfImage.value = null;
+  headerOfChat.innerText = `${selectedUser}-Chat`;
+  newUser.filter((iterateUsers) => {
+    const userName = Object.keys(iterateUsers);
+    const isMatched = userName.includes(selectedUser);
+    if (isMatched) {
+      iterateUsers[selectedUser].message.map((iterateMessage) => {
+        newMessageElement = document.createElement("li");
+        newMessageElement.innerHTML = iterateMessage;
+        newMessageElement.className = "message-item item-primary";
+        mainMessageList.appendChild(newMessageElement);
+      });
+    }
+  });
+} //new user creation completed
 //ended
 const buttonElement = document.getElementById("create-user-button");
 buttonElement.addEventListener("click", creationNewUserHandler);
+createNewUserElement.addEventListener("keypress", function (event) {
+  if (event.key === "Enter") {
+    event.preventDefault();
+    creationNewUserHandler();
+  }
+});
 
 
 //for validation of empty message
@@ -88,110 +92,114 @@ function validate(value, flag) {
 let newMessageElement;
 function sendMessageFunction() {
   let inputFieldValue = inputField.value;
-  // if (!selectedUser){
-  //   alert(
-  //     "please select any user from the sidebar to send message from their name in group,so that other user may know the sender"
-  //   );
-  //   inputField.value = "";
-  // } else {
-    let fileNames = document.querySelector("#image_input");
-    let fileName = fileNames.value;
-    console.log(fileName);
-    extension = fileName.substring(fileName.lastIndexOf(".") + 1);
-    if (extension == "png" || extension == "jpg" || extension == "jpeg") {
-      let file = window.URL.createObjectURL(fileNames.files[0]);
-      newMessageElement = document.createElement("li");
-      //update...................................
-      if(selectedGroupMember){
-        newGroups.filter((iterateGroups)=>{
-          const groupName = Object.keys(iterateGroups);
-          const isMatched = groupName.includes(inputValueOfNewGroup);
-          if(isMatched){
-            iterateGroups[inputValueOfNewGroup].messages.push(`${selectedGroupMember}: <img src="${file}" alt="" width="180 " height="100">`);
-          }        
-        });
-      }else if(selectedUser){
-        newUser.filter((iterateUsers)=>{
-          const userName = Object.keys(iterateUsers);
-          const isMatched = userName.includes(selectedUser);
-          console.log('selected user',selectedUser)
-          if(isMatched){
-            let time= new Date;
-            iterateUsers[selectedUser].message.push(` Nikesh : <img src="${file}" alt="" width="180 " height="100">`);
-            iterateUsers[selectedUser].timeOfMessage.push(`${ time.getMilliseconds()}`);
-          }        
-        });
-      }
-      if(selectedGroupMember){
-        console.log('for html',selectedGroupMember);
-        newMessageElement.innerHTML = `${selectedGroupMember}:<img src="${file}" alt="" width="180 " height="100">`;
-      }else if(selectedUser){
-        console.log('for html',selectedUser);
-        newMessageElement.innerHTML = `Nikesh:<img src="${file}" alt="" width="180 " height="100">`;
-      }
-      //........update
-      
-      newMessageElement.className = "message-item item-primary";
-      mainMessageList.appendChild(newMessageElement);
-
-      console.log('new user',newUser);
-      inputOfImage.value = null;
-    } else if (!validate(`${inputFieldValue}`, REQUIRED)) {
-      alert("please type some message in message box below");
-    } else {
-      if(selectedGroupMember){
-        newGroups.filter((iterateGroups)=>{
-          const groupName = Object.keys(iterateGroups);
-          const isMatched = groupName.includes(inputValueOfNewGroup);
-          if(isMatched){
-            iterateGroups[inputValueOfNewGroup].messages.push(`${selectedGroupMember}: ${inputFieldValue}`);
-          }        
-        });
-      }else if(selectedUser){
-        newUser.filter((iterateUsers)=>{
-          const userName = Object.keys(iterateUsers);
-          const isMatched = userName.includes(selectedUser);
-          console.log('selected user',selectedUser)
-          if(isMatched){
-            let time= new Date;
-            iterateUsers[selectedUser].message.push(` Nikesh : ${inputFieldValue}`);
-            iterateUsers[selectedUser].timeOfMessage.push(`${ time.getMilliseconds()}`);
-          }        
-        });
-      }
-      newMessageElement = document.createElement("li");
-      if(selectedUser){
-        newMessageElement.innerHTML = `Nikesh : ${inputFieldValue.replace(
-          /<[^>]+>/g,
-          ""
-        )}`;
-      }else if(selectedGroupMember){
-        
-        newMessageElement.innerHTML = `${selectedGroupMember}: ${inputFieldValue.replace(
-          /<[^>]+>/g,
-          ""
-        )}`;
-      }     
-      newMessageElement.className = "message-item item-primary";
-      newMessageElement.style.overflow="breakword";
-      mainMessageList.appendChild(newMessageElement);
-      inputField.value = "";
-      
-      console.log(newUser);
+  let fileNames = document.querySelector("#image_input");
+  let fileName = fileNames.value;
+  console.log(fileName);
+  extension = fileName.substring(fileName.lastIndexOf(".") + 1);
+  if (extension == "png" || extension == "jpg" || extension == "jpeg") {
+    let file = window.URL.createObjectURL(fileNames.files[0]);
+    newMessageElement = document.createElement("li");
+    //update...................................
+    if (selectedGroupMember) {
+      newGroups.filter((iterateGroups) => {
+        const groupName = Object.keys(iterateGroups);
+        const isMatched = groupName.includes(inputValueOfNewGroup);
+        if (isMatched) {
+          iterateGroups[inputValueOfNewGroup].messages.push(
+            `${selectedGroupMember}: <img src="${file}" alt="" width="180 " height="100">`
+          );
+        }
+      });
+    } else if (selectedUser) {
+      newUser.filter((iterateUsers) => {
+        const userName = Object.keys(iterateUsers);
+        const isMatched = userName.includes(selectedUser);
+        console.log("selected user", selectedUser);
+        if (isMatched) {
+          let time = new Date();
+          iterateUsers[selectedUser].message.push(
+            ` Nikesh : <img src="${file}" alt="" width="180 " height="100">`
+          );
+          iterateUsers[selectedUser].timeOfMessage.push(
+            `${time.getMilliseconds()}`
+          );
+        }
+      });
     }
+    if (selectedGroupMember) {
+      console.log("for html", selectedGroupMember);
+      newMessageElement.innerHTML = `${selectedGroupMember}:<img src="${file}" alt="" width="180 " height="100">`;
+    } else if (selectedUser) {
+      console.log("for html", selectedUser);
+      newMessageElement.innerHTML = `Nikesh:<img src="${file}" alt="" width="180 " height="100">`;
+    }
+    //........update
 
+    newMessageElement.className = "message-item item-primary";
+    mainMessageList.appendChild(newMessageElement);
+
+    console.log("new user", newUser);
+    inputOfImage.value = null;
+  } else if (!validate(`${inputFieldValue}`, REQUIRED)) {
+    alert("please type some message in message box below");
+  } else {
+    if (selectedGroupMember) {
+      newGroups.filter((iterateGroups) => {
+        const groupName = Object.keys(iterateGroups);
+        const isMatched = groupName.includes(inputValueOfNewGroup);
+        if (isMatched) {
+          iterateGroups[inputValueOfNewGroup].messages.push(
+            `${selectedGroupMember}: ${inputFieldValue}`
+          );
+        }
+      });
+    } else if (selectedUser) {
+      newUser.filter((iterateUsers) => {
+        const userName = Object.keys(iterateUsers);
+        const isMatched = userName.includes(selectedUser);
+        console.log("selected user", selectedUser);
+        if (isMatched) {
+          let time = new Date();
+          iterateUsers[selectedUser].message.push(
+            ` Nikesh : ${inputFieldValue}`
+          );
+          iterateUsers[selectedUser].timeOfMessage.push(
+            `${time.getMilliseconds()}`
+          );
+        }
+      });
+    }
+    newMessageElement = document.createElement("li");
+    if (selectedUser) {
+      newMessageElement.innerHTML = `Nikesh : ${inputFieldValue.replace(
+        /<[^>]+>/g,
+        ""
+      )}`;
+    } else if (selectedGroupMember) {
+      newMessageElement.innerHTML = `${selectedGroupMember}: ${inputFieldValue.replace(
+        /<[^>]+>/g,
+        ""
+      )}`;
+    }
+    newMessageElement.className = "message-item item-primary";
+    newMessageElement.style.overflow = "breakword";
+    mainMessageList.appendChild(newMessageElement);
+    inputField.value = "";
+
+    console.log(newUser);
+  }
 }
 sendImageButton.addEventListener("click", () => {
   sendMessageFunction();
 });
 //send button ended
 
-
 //group-portion-started
 
 //for creation of Group
+const groupNameElement = document.getElementById("group-name");
 function creationNewGroupHandler() {
-  selectedUser='';
+  selectedUser = "";
   inputValueOfNewGroup = groupNameElement.value;
   const groupObj = {
     [inputValueOfNewGroup]: {
@@ -217,9 +225,15 @@ function creationNewGroupHandler() {
 }
 const buttonElementGroup = document.getElementById("create-group-button");
 buttonElementGroup.addEventListener("click", creationNewGroupHandler);
+groupNameElement.addEventListener("keypress", function (event) {
+  if (event.key === "Enter") {
+    event.preventDefault();
+    creationNewGroupHandler();
+  }
+});
 
 function eventListenerForGroupMembers(groupElement) {
-  inputValueOfNewGroup=groupElement;
+  inputValueOfNewGroup = groupElement;
   document.getElementById(
     "mainHeader"
   ).innerText = `${inputValueOfNewGroup} Group-Chat`;
@@ -254,16 +268,15 @@ function eventListenerForGroupMembers(groupElement) {
   });
 }
 function userSelectionToDispayName(nameOfGroupMember) {
-  selectedGroupMember=nameOfGroupMember;
-  console.log('member name',selectedGroupMember);
+  selectedGroupMember = nameOfGroupMember;
+  console.log("member name", selectedGroupMember);
 }
 //groups creation ended
 
 //generation of listed  users in option block
-const groupNameElement = document.getElementById("group-name");
 function generateUserLIstHandler() {
   newUser.filter((userOption) => {
-    let UserName=Object.keys(userOption);
+    let UserName = Object.keys(userOption);
     const options = document.createElement("option");
     options.innerHTML = `
     <option value="${UserName}Id">${UserName}</option>
@@ -294,23 +307,17 @@ function selectionOfUsersToAddInGroup() {
 // group members adding in to group and displaying ended
 
 //search feature
-
-searchField.addEventListener("keypress",function(event){
-  enteredSearchFieldValue=searchField.value;
-  if(event.key==='Enter'){
+searchField.addEventListener("keypress", function (event) {
+  enteredSearchFieldValue = searchField.value;
+  if (event.key === "Enter") {
     event.preventDefault();
-    newUser.filter((iterateUsers)=>{
-      const userName=Object.keys(iterateUsers);
-      const isMatched=userName.includes(enteredSearchFieldValue);
-      if(isMatched){
+    newUser.filter((iterateUsers) => {
+      const userName = Object.keys(iterateUsers);
+      const isMatched = userName.includes(enteredSearchFieldValue);
+      if (isMatched) {
         eventListener(enteredSearchFieldValue);
       }
-    })
+    });
   }
-})
-
-
-
-
-
-
+});
+//search ended
