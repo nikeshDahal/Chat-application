@@ -8,6 +8,7 @@ const createdUsers = document.getElementById("users");
 const generateUserList = document.getElementById("user-List");
 const inputOfImage = document.getElementById("image_input");
 const headerOfChat=document.getElementById('mainHeader');
+const searchField=document.getElementById('searchId');
 
 //global declarations
 const newGroups = [];
@@ -290,7 +291,26 @@ function selectionOfUsersToAddInGroup() {
     }
   });
 }
-
-
-
 // group members adding in to group and displaying ended
+
+//search feature
+
+searchField.addEventListener("keypress",function(event){
+  enteredSearchFieldValue=searchField.value;
+  if(event.key==='Enter'){
+    event.preventDefault();
+    newUser.filter((iterateUsers)=>{
+      const userName=Object.keys(iterateUsers);
+      const isMatched=userName.includes(enteredSearchFieldValue);
+      if(isMatched){
+        eventListener(enteredSearchFieldValue);
+      }
+    })
+  }
+})
+
+
+
+
+
+
