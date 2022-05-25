@@ -24,7 +24,6 @@
   /* chatbox */
 
   .chat {
-    /* max-width:60%; */
     min-height: 400px;
     background-color: rgb(199, 199, 252); 
     padding-right: 15px;
@@ -42,6 +41,7 @@
     align-items: center;
 
   }
+  /* chatbox */
   
   /* messages */
   .messages {
@@ -67,6 +67,7 @@
     background-color: #fffdff;
     color: #070707;
   }
+  /* message */
   
 
   
@@ -109,6 +110,7 @@
     height:40%;
     margin-top: 1px;
   }
+  /* message box */
 
 
 /* sidebar */
@@ -155,9 +157,10 @@
     background-color: #eef4fc;
     color: rgb(245, 243, 247);
   }
+  /* sidebar */
  
-  /* group side bar */
 
+  /* group side bar */
   .Group-sidebar{
     width: 20%;
     height: 100%;
@@ -234,11 +237,12 @@
   .search button:hover{
     background-color: gray;
   }
+  /* search section ended */
   
 
   /* group members */
   .group-members{
-    width: 6.5%;
+    width: 8%;
     height: 100%;
     background-color: rgb(176, 170, 236);
     color: rgb(255, 255, 255);

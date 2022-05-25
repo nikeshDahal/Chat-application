@@ -149,6 +149,7 @@ function eventListenerForGroupMembers(groupElement) {
   document.getElementById(
     "mainHeader"
   ).innerText = `${groupElement} Group-Chat`;
+  inputOfImage.value = null;
   removeChilds(mainMessageList); //to remove all childs
   mainListForGroupMembers.innerHTML = ``;
   newGroups.filter((singleGroup) => {
@@ -177,6 +178,12 @@ function eventListenerForGroupMembers(groupElement) {
       });
     }
   });
+}
+function userSelectionToDispayName(id) {
+  const element = document.getElementById(`${id}`);
+  selectedUser = element.textContent;
+  inputOfImage.value = null;
+  
 }
 //groups creation ended
 
@@ -212,8 +219,5 @@ function selectionOfUsersToAddInGroup() {
 }
 generateUserList.addEventListener("click", generateUserLIstHandler);
 
-function userSelectionToDispayName(id) {
-  const element = document.getElementById(`${id}`);
-  selectedUser = element.textContent;
-}
+
 // group members adding in to group and displaying ended
